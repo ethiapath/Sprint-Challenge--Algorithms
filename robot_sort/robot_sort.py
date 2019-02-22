@@ -117,19 +117,20 @@ class SortingRobot:
         """
 
         # Fill this out
-        self.set_light_on()
 
-        self.swap_item()
+        self.set_light_on()
         print('inital state: ', self._list)
+        # self.swap_item()
         while self.light_is_on():
             print('state: ', self._list, 'robo pos: ', self._position, 'item: ', self._item, '', 'light: ', self.light_is_on())
 
             self.set_light_off()
-            # self.swap_item()
             while self.can_move_left(): # go to start
                 self.move_left()
+            self.swap_item()
 
             while self.can_move_right():
+                print(self._list, 'robo pos: ', self._position, 'item: ', self._item, '', 'light: ', self.light_is_on())
                 self.move_right()
                 if self.compare_item() == 1:
                     self.set_light_on()
@@ -138,15 +139,21 @@ class SortingRobot:
                     self.swap_item()
                     self.move_right()
                     self.swap_item()
-                if not self.can_move_right():
+                elif self.compare_item() == -1:
                     self.set_light_on()
+                    self.move_left()
                     self.swap_item()
-                # elif self.compare_item() == -1:
-                #     self.set_light_on()
-                #     self.move_left()
-                #     self.swap_item()
-                #     self.move_right()
-                #     self.swap_item()
+                    self.move_right()
+                    self.swap_item()
+
+                if not self.can_move_right() and (self.compare_item() == 1 or self.compare_item() == None):
+                    # self.set_light_on()
+                    self.swap_item()
+
+                # elif not self.can_move_right() and self.compare_item() == -1:
+                #     print('break')
+                #     break
+
                 # elif self.compare_item() == None and not self.light_is_on():
                 #     self.swap_item()
 
