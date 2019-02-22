@@ -62,6 +62,22 @@ class SortingRobot:
         # Swap the held item with the list item at the robot's position
         self._item, self._list[self._position] = self._list[self._position], self._item
 
+    def set_light_on(self):
+        """
+        Turn on the robot's light
+        """
+        self._light = "ON"
+    def set_light_off(self):
+        """
+        Turn off the robot's light
+        """
+        self._light = "OFF"
+    def light_is_on(self):
+        """
+        Returns True if the robot's light is on and False otherwise.
+        """
+        return self._light == "ON"
+
     def compare_item(self):
         """
         Compare the held item with the item in front of the robot:
@@ -80,62 +96,46 @@ class SortingRobot:
         else:
             return 0
 
-    def set_light_on(self):
-        """
-        Turn on the robot's light
-        """
-        self._light = "ON"
-    def set_light_off(self):
-        """
-        Turn off the robot's light
-        """
-        self._light = "OFF"
-    def light_is_on(self):
-        """
-        Returns True if the robot's light is on and False otherwise.
-        """
-        return self._light == "ON"
-
     def sort(self):
         """
         Sort the robot's list.
         pick up card at zero
 
         how can I know if the list is sorted?
+        Use the light!
 
-        while move right, compare
-        if compare returns 1 then then swap
-        elif compare returns -1 then move right
-        elif compare returns 0 move left, swap, and move right
+        when robot is holding something set the light 
+        to on
+
+        set light on
+        pick up first item
+        while light is on
+            set light off
+            move right
+
+
+
         """
         # Fill this out
-
-        print('inital state: ', self._list)
         self.set_light_on()
         self.swap_item()
-        while(self.move_right()):
-            print('robo pos: ', self._position, 'item: ', self._item, 'state: ', self._list)
-            if self.compare_item() == 1: # held item is greater
-                if not self.can_move_right(): # at end of list
+        print('inital state: ', self._list)
+        while self.light_is_on() and self.compare_item() == None:
+            print('robo pos: ', self._position, 'item: ', self._item, '', 'light: ',self.light_is_on(),'state: ', self._list)
+
+            self.set_light_off()
+            while self.can_move_left():
+                self.move_left()
+            while self.can_move_right():
+                self.move_right()
+                if self.compare_item() == 1:
                     self.swap_item()
-            if self.compare_item() == -1: # held item is less then
-                while(self.compare_item() == -1 and not self.compare_item() == 0):
-                    print('robo pos: ', self._position, 'item: ', self._item, 'state: ', self._list)
-                    if self.can_move_left():
-                        self.move_left()
-                    else:
-                        break
-                self.swap_item()
-            else:                       # held item is equal
-                if not self.can_move_right():
                     self.move_left()
                     self.swap_item()
                     self.move_right()
-                else:
                     self.move_right()
-
-        pass
-
+                    self.set_light_on()
+        
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
@@ -144,7 +144,7 @@ if __name__ == "__main__":
     # l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
 
     # l = [5, 4, 3, 2, 1]
-    l = [3, 5, 4, 3, 2, 1]
+    l = [5, 3, 4, 3, 2, 1]
     robot = SortingRobot(l)
 
     robot.sort()
