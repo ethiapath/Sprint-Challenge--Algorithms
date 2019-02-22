@@ -15,4 +15,4 @@ if the egg doesn't break
 go halfway to the top floor
 repeat until you the egg breaks if you go 
 one floor higher
-
+O(log n)
