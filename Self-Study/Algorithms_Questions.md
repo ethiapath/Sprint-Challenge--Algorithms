@@ -10,7 +10,7 @@ a)  a = 0
     while (a < n * n * n):
       a = a + n * n
 ```
-
+O(n^3)
 ```
 b)  sum = 0
 
@@ -24,7 +24,7 @@ b)  sum = 0
             l += 1
             sum += 1
 ```
-
+O(n^4)
 ```
 c)  def bunnieEars(bunnies):
       if bunnies == 0:
@@ -32,7 +32,7 @@ c)  def bunnieEars(bunnies):
 
       return 2 + bunnyEars(bunnies-1)
 ```
-
+O(n)
 ## Exercise II
 
 Suppose that you have an _n_-story building and plenty of eggs. Suppose also
