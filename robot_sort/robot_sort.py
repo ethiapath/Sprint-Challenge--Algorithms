@@ -120,7 +120,7 @@ class SortingRobot:
 
         # Fill this out
 
-        print('inital state: ', self._list)
+        # print('inital state: ', self._list)
         # self.swap_item()
 
         while not self.light_is_on():
